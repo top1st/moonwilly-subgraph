@@ -17,6 +17,7 @@ const loadRewardSummery = (): RewardSummery => {
         rewardSummery = new RewardSummery("1")
         rewardSummery.totalCount = 0
         rewardSummery.totalReward = BigDecimal.fromString("0")
+        rewardSummery.treasuryReward = BigDecimal.fromString("0")
         rewardSummery.save()
     }
     return rewardSummery as RewardSummery

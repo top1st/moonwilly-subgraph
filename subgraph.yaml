@@ -78,3 +78,23 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/tracker.ts
+  - kind: ethereum/contract
+    name: DAI
+    network: bsc
+    source:
+      address: "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3"
+      abi: DAI
+      startBlock: 9005824
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Transfer
+      abis:
+        - name: DAI
+          file: ./abis/DAI.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/treasury.ts

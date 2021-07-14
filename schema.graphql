@@ -15,6 +15,7 @@ type User @entity {
 type RewardSummery @entity {
   id: ID! # address
   totalReward: BigDecimal!
+  treasuryReward: BigDecimal!
   totalCount: Int!
   lastReward: Reward
 }
