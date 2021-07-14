@@ -1,4 +1,4 @@
-import { BigInt, BigDecimal } from "@graphprotocol/graph-ts"
+import { BigInt, BigDecimal, Address } from "@graphprotocol/graph-ts"
 import {
     DAI,
     Approval,
@@ -30,5 +30,5 @@ export function handleTransfer(event: Transfer): void {
     daiTransfer.from = event.params.from
     daiTransfer.to = event.params.to
     daiTransfer.value = event.params.value
-    daiTransfer.contract = event.transaction.to
+    daiTransfer.contract = event.transaction.to as Address
 }
