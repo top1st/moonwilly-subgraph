@@ -5,21 +5,21 @@ function loadUser(id: string): User {
     let user = User.load(id)
     if (!user) {
         user = new User(id)
-        user.totalReward = 0;
+        user.totalReward = BigDecimal.from("0");
         user.save()
     }
-    return user as any
+    return user
 }
 
 function loadRewardSummery(): RewardSummery {
     let rewardSummery = RewardSummery.load("1")
     if(!rewardSummery) {
         rewardSummery = new RewardSummery("1")
-        rewardSummery.totalCount = new BigDecimal(0)
-        rewardSummery.totalReward = new BigDecimal(0)
+        rewardSummery.totalCount = 0
+        rewardSummery.totalReward = BigDecimal.from("0")
         rewardSummery.save()
     }
-    return rewardSummery as any
+    return rewardSummery
 }
 
 export {
