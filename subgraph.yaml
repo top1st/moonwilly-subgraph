@@ -1,0 +1,38 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MoonWilly
+    network: bsc
+    source:
+      address: "0xd4D2aBBeF1b26458504e7027233D5e7F09ea476d"
+      abi: MoonWilly
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - OwnershipTransferred
+        - ProcessedDividendTracker
+        - SetAutomatedMarketMakerPair
+        - SwapAndLiquify
+        - Transfer
+      abis:
+        - name: MoonWilly
+          file: ./abis/MoonWilly.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ProcessedDividendTracker(uint256,uint256,uint256,indexed bool,uint256,indexed address)
+          handler: handleProcessedDividendTracker
+        - event: SetAutomatedMarketMakerPair(indexed address,indexed bool)
+          handler: handleSetAutomatedMarketMakerPair
+        - event: SwapAndLiquify(uint256,uint256,uint256)
+          handler: handleSwapAndLiquify
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/mapping.ts
