@@ -84,7 +84,7 @@ export function handleApproval(event: Approval): void {
 }
 
 export function handleClaim(event: Claim): void {
-    const reward = new Reward(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
+    let reward = new Reward(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
     let user = loadUser(event.params.account.toHex())
     reward.user = user.id
     reward.amount = event.params.amount.toBigDecimal() / 1e18
