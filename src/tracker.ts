@@ -89,7 +89,7 @@ export function handleClaimWaitUpdated(event: ClaimWaitUpdated): void {
 }
 
 export function handleDividendWithdrawn(event: DividendWithdrawn): void {
-    const reward = new Reward(event.transaction.hash.toString() + '-' + event.logIndex.toString())
+    const reward = new Reward(event.transaction.hash.toHex() + '-' + event.logIndex.toI32())
     reward.user = event.params.to
     reward.amount = event.params.weiAmount
     reward.save()
