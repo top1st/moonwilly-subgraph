@@ -1,4 +1,4 @@
-import {BigInt} from "@graphprotocol/graph-ts"
+import { BigDecimal, BigInt } from "@graphprotocol/graph-ts";
 import {
     TokenDividendTracker,
     Approval,
@@ -87,7 +87,7 @@ export function handleClaim(event: Claim): void {
     let reward = new Reward(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
     let user = loadUser(event.params.account.toHex())
     reward.user = user.id
-    reward.amount = event.params.amount.toBigDecimal() / 1e18
+    reward.amount = event.params.amount.toBigDecimal() / BigDecimal.fromString('1e18')
     user.totalReward = user.totalReward + reward.amount
     user.save()
     reward.blockNumber = event.block.number
