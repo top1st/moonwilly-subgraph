@@ -1,6 +1,7 @@
+import { BigDecimal } from "@graphprotocol/graph-ts";
 import {RewardSummery, User} from "../generated/schema";
 
-function loadUser(id: string): User {
+function loadUser(id: string) {
     let user = User.load(id)
     if (!user) {
         user = new User(id)
@@ -10,12 +11,12 @@ function loadUser(id: string): User {
     return user
 }
 
-function loadRewardSummery(): RewardSummery {
+function loadRewardSummery() {
     let rewardSummery = RewardSummery.load("1")
     if(!rewardSummery) {
         rewardSummery = new RewardSummery("1")
-        rewardSummery.totalCount = 0
-        rewardSummery.totalReward = 0
+        rewardSummery.totalCount = new BigDecimal(0)
+        rewardSummery.totalReward = new BigDecimal(0)
         rewardSummery.save()
     }
     return rewardSummery
