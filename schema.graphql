@@ -1,7 +1,20 @@
 type Reward @entity {
   id: ID!
-  user: Bytes! # address
-  amount: BigInt!
+  user: User! # address
+  amount: BigDecimal!
   blockNumber: BigInt!
   txHash: Bytes!
+}
+
+type User @entity {
+  id: ID! # address
+  totalReward: BigDecimal!
+  rewards: [Reward!]! @derivedFrom(field: "user")
+}
+
+type RewardSummery @entity {
+  id: ID! # address
+  totalReward: BigDecimal!
+  totalCount: Int!
+  lastReward: Reward
 }

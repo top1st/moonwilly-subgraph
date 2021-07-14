@@ -10,7 +10,8 @@ import {
     OwnershipTransferred,
     Transfer
 } from "../generated/TokenDividendTracker/TokenDividendTracker"
-import {Reward} from "../generated/schema"
+import {Reward, RewardSummery, User} from "../generated/schema"
+import {loadRewardSummery, loadUser} from "./helpers";
 
 export function handleApproval(event: Approval): void {
     // Entities can be loaded from the store using a string ID; this ID
@@ -83,18 +84,26 @@ export function handleApproval(event: Approval): void {
 }
 
 export function handleClaim(event: Claim): void {
+    const reward = new Reward(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
+    let user = loadUser(event.params.account.toHex())
+    reward.user = user.id
+    reward.amount = event.params.amount.toBigDecimal() / 1e18
+    user.totalReward = user.totalReward + reward.amount
+    user.save()
+    reward.blockNumber = event.block.number
+    reward.txHash = event.transaction.hash
+    reward.save()
+    let rewardSummery = loadRewardSummery()
+    rewardSummery.totalReward = rewardSummery.totalReward + reward.amount
+    rewardSummery.totalCount++
+    rewardSummery.lastReward = reward.id
+    rewardSummery.save()
 }
 
 export function handleClaimWaitUpdated(event: ClaimWaitUpdated): void {
 }
 
 export function handleDividendWithdrawn(event: DividendWithdrawn): void {
-    const reward = new Reward(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
-    reward.user = event.params.to
-    reward.amount = event.params.weiAmount
-    reward.blockNumber = event.block.number
-    reward.txHash = event.transaction.hash
-    reward.save()
 }
 
 export function handleDividendsDistributed(event: DividendsDistributed): void {
