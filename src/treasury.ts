@@ -31,5 +31,6 @@ export function handleTransfer(event: Transfer): void {
     daiTransfer.to = event.params.to
     daiTransfer.value = event.params.value
     daiTransfer.contract = event.transaction.to as Address
+    daiTransfer.txHash = event.transaction.hash
     daiTransfer.save()
 }
