@@ -92,6 +92,8 @@ export function handleDividendWithdrawn(event: DividendWithdrawn): void {
     const reward = new Reward(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
     reward.user = event.params.to
     reward.amount = event.params.weiAmount
+    reward.blockNumber = event.block.number
+    reward.txHash = event.transaction.hash
     reward.save()
 }
 
