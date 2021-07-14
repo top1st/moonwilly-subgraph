@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "0xd4D2aBBeF1b26458504e7027233D5e7F09ea476d"
       abi: MoonWilly
+      startBlock: 9005824
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
