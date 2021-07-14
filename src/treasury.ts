@@ -5,7 +5,7 @@ import {
     OwnershipTransferred,
     Transfer
 } from "../generated/DAI/DAI"
-import {DaiTransfer, Reward} from "../generated/schema";
+import {Reward} from "../generated/schema";
 import {loadRewardSummery, loadUser} from "./helpers";
 
 
@@ -26,14 +26,6 @@ export function handleTransfer(event: Transfer): void {
         rewardSummery.treasuryReward = rewardSummery.treasuryReward + reward.amount
         rewardSummery.totalCount++
         rewardSummery.save()
-    } else {
-        let daiTransfer = new DaiTransfer(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
-        daiTransfer.from = event.params.from
-        daiTransfer.to = event.params.to
-        daiTransfer.value = event.params.value
-        daiTransfer.contract = event.transaction.to as Address
-        daiTransfer.txHash = event.transaction.hash
-        daiTransfer.save()
     }
 
 }

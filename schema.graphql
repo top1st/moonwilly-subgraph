@@ -19,12 +19,3 @@ type RewardSummery @entity {
   totalCount: Int!
   lastReward: Reward
 }
-
-type DaiTransfer @entity {
-  id: ID! # address
-  from: Bytes!
-  to: Bytes!
-  value: BigInt!
-  contract: Bytes!
-  txHash: Bytes!
-}
