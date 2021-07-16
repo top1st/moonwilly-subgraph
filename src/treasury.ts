@@ -24,6 +24,7 @@ export function handleTransfer(event: Transfer): void {
         reward.save()
         let rewardSummery = loadRewardSummery()
         rewardSummery.treasuryReward = rewardSummery.treasuryReward + reward.amount
+        rewardSummery.totalReward = rewardSummery.totalReward + reward.amount
         rewardSummery.totalCount++
         rewardSummery.save()
     }
