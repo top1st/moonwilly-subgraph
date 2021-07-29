@@ -9,6 +9,7 @@ import {
   Transfer
 } from "../generated/MoonWilly/MoonWilly"
 import {Burn} from "../generated/schema";
+import {loadRewardSummery} from "./helpers";
 // import { ExampleEntity } from "../generated/schema"
 
 export function handleApproval(event: Approval): void {
@@ -106,5 +107,9 @@ export function handleTransfer(event: Transfer): void {
     burn.blockNumber = event.block.number
     burn.txHash = event.transaction.hash
     burn.amount = event.params.value.toBigDecimal() / BigDecimal.fromString('1e18')
+    burn.save()
+    let rewardSummery = loadRewardSummery()
+    rewardSummery.totalBurned = rewardSummery.totalBurned + burn.amount
+    rewardSummery.save()
   }
 }
