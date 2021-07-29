@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigDecimal, BigInt } from "@graphprotocol/graph-ts"
 import {
   MoonWilly,
   Approval,
@@ -8,6 +8,7 @@ import {
   SwapAndLiquify,
   Transfer
 } from "../generated/MoonWilly/MoonWilly"
+import {Burn} from "../generated/schema";
 // import { ExampleEntity } from "../generated/schema"
 
 export function handleApproval(event: Approval): void {
@@ -99,4 +100,11 @@ export function handleSetAutomatedMarketMakerPair(
 
 export function handleSwapAndLiquify(event: SwapAndLiquify): void {}
 
-export function handleTransfer(event: Transfer): void {}
+export function handleTransfer(event: Transfer): void {
+  if(event.params.to.toHex() == '0x0000000000000000000000000000000000000000') {
+    let burn = new Burn(event.transaction.hash.toHex() + '-' + event.logIndex.toString())
+    burn.blockNumber = event.block.number
+    burn.txHash = event.transaction.hash
+    burn.amount = event.params.value.toBigDecimal() / BigDecimal.fromString('1e18')
+  }
+}

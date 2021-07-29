@@ -16,6 +16,14 @@ type RewardSummery @entity {
   id: ID! # address
   totalReward: BigDecimal!
   treasuryReward: BigDecimal!
+  totalBurned: BigDecimal!
   totalCount: Int!
   lastReward: Reward
+}
+
+type Burn @entity {
+  id: ID!
+  txHash: Bytes!
+  blockNumber: BigInt!
+  amount: BigDecimal!
 }
